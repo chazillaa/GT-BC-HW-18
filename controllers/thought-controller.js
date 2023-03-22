@@ -6,7 +6,6 @@ module.exports = {
     getThoughts(req, res) {
         Thoughts.find({})
         .populate({ path: 'reactions', select: '-__v' })
-        .select(`-__v`)
         .then((thoughts) => res.json(thoughts))
         .catch((err) => res.status(500).json(err))
     },
@@ -15,7 +14,6 @@ module.exports = {
     getThoughtsById(req, res) {
         Thoughts.findOne({ _id: req.params.id })
         .populate({ path: 'reactions', select: '-__v' })
-        .select(`-__v`)
         .then((thought) => {
             if(!thought) {
                 res.status(404).json({ message: 'No thought is associated with this id.'})
